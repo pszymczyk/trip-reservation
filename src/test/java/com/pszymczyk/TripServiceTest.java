@@ -28,9 +28,7 @@ public class TripServiceTest {
         //given
         String userId = "some-id";
         String tripCode = "some-trip";
-        Trip trip = new Trip();
-        trip.setSeatsNumber(1);
-        trip.setReservations(new ArrayList<>());
+        Trip trip = new Trip(1);
         when(testTripDao.findTrip(anyString())).thenReturn(trip);
 
         //when
@@ -45,16 +43,12 @@ public class TripServiceTest {
         //given
         String userId = "some-id";
         String tripCode = "some-trip";
-        Trip trip = new Trip();
-        trip.setSeatsNumber(1);
         List<Reservation> reservations = new ArrayList<>();
-        Reservation newReservation = new Reservation();
-        newReservation.setStatus(Reservation.ReservationStatus.NEW);
+        Reservation newReservation = new Reservation(userId, tripCode);
         reservations.add(newReservation);
-        Reservation canceledReservation = new Reservation();
-        canceledReservation.setStatus(Reservation.ReservationStatus.CANCELED);
+        Reservation canceledReservation = new Reservation(userId, tripCode).cancel();
         reservations.add(canceledReservation);
-        trip.setReservations(reservations);
+        Trip trip = new Trip(1, reservations);
         when(testTripDao.findTrip(anyString())).thenReturn(trip);
 
         //when
@@ -69,13 +63,10 @@ public class TripServiceTest {
         //given
         String userId = "some-id";
         String tripCode = "some-trip";
-        Trip trip = new Trip();
-        trip.setSeatsNumber(1);
         List<Reservation> reservations = new ArrayList<>();
-        Reservation reservation = new Reservation();
-        reservation.setStatus(Reservation.ReservationStatus.CONFIRMED);
+        Reservation reservation = new Reservation(userId, tripCode).confirm();
         reservations.add(reservation);
-        trip.setReservations(reservations);
+        Trip trip = new Trip(1, reservations);
         when(testTripDao.findTrip(anyString())).thenReturn(trip);
 
         //when

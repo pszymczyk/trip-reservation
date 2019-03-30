@@ -2,49 +2,48 @@ package com.pszymczyk;
 
 import java.util.UUID;
 
-public class Reservation {
+class Reservation {
 
     public enum ReservationStatus {
         NEW,
         CONFIRMED,
         CANCELED
-
     }
 
-    private UUID id;
-    private String userId;
-    private String tripCode;
-    private ReservationStatus status;
+    private final UUID id;
+    private final String userId;
+    private final String tripCode;
+    private final ReservationStatus status;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
+    Reservation(String userId, String tripCode) {
+        this.id = UUID.randomUUID();
         this.userId = userId;
-    }
-
-    public String getTripCode() {
-        return tripCode;
-    }
-
-    public void setTripCode(String tripCode) {
         this.tripCode = tripCode;
+        this.status = ReservationStatus.NEW;
     }
-
-    public ReservationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ReservationStatus status) {
+    private Reservation(UUID id, String userId, String tripCode, ReservationStatus status) {
+        this.id = id;
+        this.userId = userId;
+        this.tripCode = tripCode;
         this.status = status;
+    }
+    Reservation cancel() {
+        return new Reservation(
+                this.id,
+                this.userId,
+                this.tripCode,
+                ReservationStatus.CANCELED);
+    }
+
+    Reservation confirm() {
+        return new Reservation(
+                this.id,
+                this.userId,
+                this.tripCode,
+                ReservationStatus.CONFIRMED);
+    }
+
+    boolean isConfirmed() {
+        return status == Reservation.ReservationStatus.CONFIRMED;
     }
 }
