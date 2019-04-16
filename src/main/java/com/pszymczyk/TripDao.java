@@ -1,8 +1,14 @@
 package com.pszymczyk;
 
-class TripDao {
+class TripDao implements TripRepository{
 
-    Trip findTrip(String tripCode) {
+    @Override
+    public Trip findTrip(String tripCode) {
+        throw new UnsupportedOperationException("Not implemented already!");
+    }
+
+    @Override
+    public void save(Trip trip) {
         throw new UnsupportedOperationException("Not implemented already!");
     }
 }

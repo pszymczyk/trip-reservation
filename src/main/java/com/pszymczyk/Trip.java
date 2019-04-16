@@ -7,15 +7,17 @@ import java.util.stream.Collectors;
 
 class Trip {
 
+    private final String tripCode;
     private final int seatsNumber;
 
     private List<Reservation> reservations;
 
-    Trip(int seatsNumber) {
-        this(seatsNumber, new ArrayList<>());
+    Trip(String tripCode, int seatsNumber) {
+        this(tripCode, seatsNumber, new ArrayList<>());
     }
 
-    Trip(int seatsNumber, List<Reservation> reservations) {
+    Trip(String tripCode, int seatsNumber, List<Reservation> reservations) {
+        this.tripCode = tripCode;
         this.seatsNumber = seatsNumber;
         this.reservations = reservations;
     }
@@ -46,5 +48,9 @@ class Trip {
 
     List<Reservation> getReservations() {
         return reservations;
+    }
+
+    public String getTripCode() {
+        return tripCode;
     }
 }

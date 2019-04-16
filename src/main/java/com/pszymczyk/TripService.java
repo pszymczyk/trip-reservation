@@ -4,14 +4,18 @@ import java.util.Optional;
 
 class TripService {
 
-    private final TripDao tripDao;
+    private final TripRepository tripRepository;
 
-    TripService(TripDao tripDao) {
-        this.tripDao = tripDao;
+    TripService(TripRepository tripRepository) {
+        this.tripRepository = tripRepository;
+    }
+
+    void addTrip(String tripCode, int seatsNumber) {
+        tripRepository.save(new Trip(tripCode, seatsNumber));
     }
 
     void book(String userId, String tripCode) {
-        Trip trip = tripDao.findTrip(tripCode);
+        Trip trip = tripRepository.findTrip(tripCode);
 
         Optional<ReservationSummary> reservationSummary = trip.requestReservation(userId, tripCode);
 
