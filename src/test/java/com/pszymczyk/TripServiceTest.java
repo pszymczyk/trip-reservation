@@ -28,7 +28,7 @@ public class TripServiceTest {
         //given
         String userId = "some-id";
         String tripCode = "some-trip";
-        Trip trip = new Trip(1);
+        Trip trip = new Trip(tripCode, 1);
         when(testTripDao.findTrip(anyString())).thenReturn(trip);
 
         //when
@@ -48,7 +48,7 @@ public class TripServiceTest {
         reservations.add(newReservation);
         Reservation canceledReservation = new Reservation(userId, tripCode).cancel();
         reservations.add(canceledReservation);
-        Trip trip = new Trip(1, reservations);
+        Trip trip = new Trip(tripCode, 1, reservations);
         when(testTripDao.findTrip(anyString())).thenReturn(trip);
 
         //when
@@ -66,7 +66,7 @@ public class TripServiceTest {
         List<Reservation> reservations = new ArrayList<>();
         Reservation reservation = new Reservation(userId, tripCode).confirm();
         reservations.add(reservation);
-        Trip trip = new Trip(1, reservations);
+        Trip trip = new Trip(tripCode, 1, reservations);
         when(testTripDao.findTrip(anyString())).thenReturn(trip);
 
         //when
