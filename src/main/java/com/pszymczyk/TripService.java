@@ -2,6 +2,9 @@ package com.pszymczyk;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Component;
+
+@Component
 class TripService {
 
     private final TripRepository tripRepository;
