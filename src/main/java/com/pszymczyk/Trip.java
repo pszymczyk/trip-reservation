@@ -22,12 +22,12 @@ class Trip {
         this.reservations = reservations;
     }
 
-    Optional<ReservationSummary> requestReservation(String userId, String tripCode) {
+    Optional<ReservationSummary> requestReservation(String userId) {
         if (!hasFreeSeats()) {
             return Optional.empty();
         }
 
-        addReservation(new Reservation(userId, tripCode));
+        addReservation(new Reservation(userId));
         return Optional.of(new ReservationSummary());
     }
 

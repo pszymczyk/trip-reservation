@@ -15,12 +15,12 @@ import static org.mockito.Mockito.when;
 public class TripServiceTest {
 
     private TripService tripService;
-    private TripDao testTripDao;
+    private SpringDataTripRepository testSpringDataTripRepository;
 
     @Before
     public void setup() {
-        testTripDao = mock(TripDao.class);
-        tripService = new TripService(testTripDao);
+        testSpringDataTripRepository = mock(SpringDataTripRepository.class);
+        tripService = new TripService(testSpringDataTripRepository);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class TripServiceTest {
         String userId = "some-id";
         String tripCode = "some-trip";
         Trip trip = new Trip(tripCode, 1);
-        when(testTripDao.findTrip(anyString())).thenReturn(trip);
+        when(testSpringDataTripRepository.findTrip(anyString())).thenReturn(trip);
 
         //when
         tripService.book(userId, tripCode);
@@ -44,12 +44,12 @@ public class TripServiceTest {
         String userId = "some-id";
         String tripCode = "some-trip";
         List<Reservation> reservations = new ArrayList<>();
-        Reservation newReservation = new Reservation(userId, tripCode);
+        Reservation newReservation = new Reservation(userId);
         reservations.add(newReservation);
-        Reservation canceledReservation = new Reservation(userId, tripCode).cancel();
+        Reservation canceledReservation = new Reservation(userId).cancel();
         reservations.add(canceledReservation);
         Trip trip = new Trip(tripCode, 1, reservations);
-        when(testTripDao.findTrip(anyString())).thenReturn(trip);
+        when(testSpringDataTripRepository.findTrip(anyString())).thenReturn(trip);
 
         //when
         tripService.book(userId, tripCode);
@@ -64,10 +64,10 @@ public class TripServiceTest {
         String userId = "some-id";
         String tripCode = "some-trip";
         List<Reservation> reservations = new ArrayList<>();
-        Reservation reservation = new Reservation(userId, tripCode).confirm();
+        Reservation reservation = new Reservation(userId).confirm();
         reservations.add(reservation);
         Trip trip = new Trip(tripCode, 1, reservations);
-        when(testTripDao.findTrip(anyString())).thenReturn(trip);
+        when(testSpringDataTripRepository.findTrip(anyString())).thenReturn(trip);
 
         //when
         Throwable thrown = catchThrowable(() -> tripService.book(userId, tripCode));

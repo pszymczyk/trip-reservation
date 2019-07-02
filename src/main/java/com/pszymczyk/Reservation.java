@@ -10,28 +10,24 @@ class Reservation {
         CANCELED
     }
 
-    private final UUID id;
-    private final String userId;
-    private final String tripCode;
-    private final ReservationStatus status;
+    final UUID id;
+    final String userId;
+    final ReservationStatus status;
 
-    Reservation(String userId, String tripCode) {
+    Reservation(String userId) {
         this.id = UUID.randomUUID();
         this.userId = userId;
-        this.tripCode = tripCode;
         this.status = ReservationStatus.NEW;
     }
-    private Reservation(UUID id, String userId, String tripCode, ReservationStatus status) {
+    Reservation(UUID id, String userId, ReservationStatus status) {
         this.id = id;
         this.userId = userId;
-        this.tripCode = tripCode;
         this.status = status;
     }
     Reservation cancel() {
         return new Reservation(
                 this.id,
                 this.userId,
-                this.tripCode,
                 ReservationStatus.CANCELED);
     }
 
@@ -39,7 +35,6 @@ class Reservation {
         return new Reservation(
                 this.id,
                 this.userId,
-                this.tripCode,
                 ReservationStatus.CONFIRMED);
     }
 
