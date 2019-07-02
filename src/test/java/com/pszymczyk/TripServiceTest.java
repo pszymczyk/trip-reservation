@@ -15,12 +15,12 @@ import static org.mockito.Mockito.when;
 public class TripServiceTest {
 
     private TripService tripService;
-    private SpringDataTripRepository testSpringDataTripRepository;
+    private TripRepository tripRepository;
 
     @Before
     public void setup() {
-        testSpringDataTripRepository = mock(SpringDataTripRepository.class);
-        tripService = new TripService(testSpringDataTripRepository);
+        tripRepository = mock(TripRepository.class);
+        tripService = new TripService(tripRepository);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class TripServiceTest {
         String userId = "some-id";
         String tripCode = "some-trip";
         Trip trip = new Trip(tripCode, 1);
-        when(testSpringDataTripRepository.findTrip(anyString())).thenReturn(trip);
+        when(tripRepository.findTrip(anyString())).thenReturn(trip);
 
         //when
         tripService.book(userId, tripCode);
@@ -49,7 +49,7 @@ public class TripServiceTest {
         Reservation canceledReservation = new Reservation(userId).cancel();
         reservations.add(canceledReservation);
         Trip trip = new Trip(tripCode, 1, reservations);
-        when(testSpringDataTripRepository.findTrip(anyString())).thenReturn(trip);
+        when(tripRepository.findTrip(anyString())).thenReturn(trip);
 
         //when
         tripService.book(userId, tripCode);
@@ -67,7 +67,7 @@ public class TripServiceTest {
         Reservation reservation = new Reservation(userId).confirm();
         reservations.add(reservation);
         Trip trip = new Trip(tripCode, 1, reservations);
-        when(testSpringDataTripRepository.findTrip(anyString())).thenReturn(trip);
+        when(tripRepository.findTrip(anyString())).thenReturn(trip);
 
         //when
         Throwable thrown = catchThrowable(() -> tripService.book(userId, tripCode));
