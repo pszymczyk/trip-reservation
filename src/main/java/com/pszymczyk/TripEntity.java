@@ -1,8 +1,14 @@
 package com.pszymczyk;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 class TripEntity {
@@ -14,6 +20,10 @@ class TripEntity {
     private String tripCode;
 
     private int seatsNumber;
+
+    @OneToMany(orphanRemoval=true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="TRIP_ID")
+    private Set<ReservationEntity> reservations;
 
     public long getEntityId() {
         return entityId;
@@ -37,5 +47,17 @@ class TripEntity {
 
     public void setSeatsNumber(int seatsNumber) {
         this.seatsNumber = seatsNumber;
+    }
+
+    public Set<ReservationEntity> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<ReservationEntity> reservations) {
+        this.reservations = reservations;
+    }
+
+    public void apply(Trip trip) {
+
     }
 }
