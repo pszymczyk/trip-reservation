@@ -2,6 +2,8 @@ package com.pszymczyk;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Component;
 
 import static java.util.stream.Collectors.toList;
@@ -29,6 +31,7 @@ class SqlTripRepository implements TripRepository {
     @Override
     public void save(Trip trip) {
         TripEntity tripEntity = crudTripRepository.findByTripCode(trip.getTripCode());
-        tripEntity.apply(trip);
+        tripEntity.update(trip);
+        crudTripRepository.save(tripEntity);
     }
 }

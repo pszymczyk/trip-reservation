@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 class TestConfiguration {
 
-    @Bean
-    @Primary
+    // @Bean
+    // @Primary
     TripRepository tripRepository() {
         return new InMemoryTripRepository();
     }

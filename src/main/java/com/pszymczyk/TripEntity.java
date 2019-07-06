@@ -1,6 +1,8 @@
 package com.pszymczyk;
 
+import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import static java.util.stream.Collectors.toMap;
 
 @Entity
 class TripEntity {
@@ -57,7 +61,23 @@ class TripEntity {
         this.reservations = reservations;
     }
 
-    public void apply(Trip trip) {
+    public void update(Trip trip) {
+        Map<UUID, Reservation> grouped = trip.getReservations()
+                                             .stream()
+                                             .collect(toMap(x -> x.id, x -> x));
 
+        for (ReservationEntity reservationEntity: reservations) {
+            Reservation reservation = grouped.get(reservationEntity.getId());
+            reservationEntity.setStatus(reservation.status.name());
+            grouped.remove(reservation.id);
+        }
+
+        for (Reservation reservation: grouped.values()) {
+            ReservationEntity reservationEntity = new ReservationEntity();
+            reservationEntity.setId(reservation.id);
+            reservationEntity.setUserId(reservation.userId);
+            reservationEntity.setStatus(reservation.status.name());
+            reservations.add(reservationEntity);
+        }
     }
 }

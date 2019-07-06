@@ -10,9 +10,9 @@ class Reservation {
         CANCELED
     }
 
-    private final UUID id;
-    private final String userId;
-    private final ReservationStatus status;
+    final UUID id;
+    final String userId;
+    final ReservationStatus status;
 
     Reservation(String userId) {
         this.id = UUID.randomUUID();
