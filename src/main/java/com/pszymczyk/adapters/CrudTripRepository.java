@@ -1,4 +1,4 @@
-package com.pszymczyk;
+package com.pszymczyk.adapters;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;

@@ -1,4 +1,4 @@
-package com.pszymczyk;
+package com.pszymczyk.adapters;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -6,8 +6,13 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import static com.pszymczyk.Reservation.ReservationStatus.CONFIRMED;
-import static com.pszymczyk.Reservation.ReservationStatus.NEW;
+import com.pszymczyk.adapters.ReservationEntity;
+import com.pszymczyk.adapters.TripEntity;
+import com.pszymczyk.domain.Reservation;
+import com.pszymczyk.domain.Trip;
+
+import static com.pszymczyk.domain.Reservation.ReservationStatus.CONFIRMED;
+import static com.pszymczyk.domain.Reservation.ReservationStatus.NEW;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;

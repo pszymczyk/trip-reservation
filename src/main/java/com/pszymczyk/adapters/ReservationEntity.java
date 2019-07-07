@@ -1,4 +1,4 @@
-package com.pszymczyk;
+package com.pszymczyk.adapters;
 
 import java.util.UUID;
 

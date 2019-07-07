@@ -1,10 +1,15 @@
-package com.pszymczyk;
+package com.pszymczyk.application;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.pszymczyk.application.TripService;
+import com.pszymczyk.domain.Reservation;
+import com.pszymczyk.domain.Trip;
+import com.pszymczyk.domain.TripRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;

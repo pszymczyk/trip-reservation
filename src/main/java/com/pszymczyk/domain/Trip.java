@@ -1,28 +1,28 @@
-package com.pszymczyk;
+package com.pszymczyk.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-class Trip {
+public class Trip {
 
     private final String tripCode;
     private final int seatsNumber;
 
     private List<Reservation> reservations;
 
-    Trip(String tripCode, int seatsNumber) {
+    public Trip(String tripCode, int seatsNumber) {
         this(tripCode, seatsNumber, new ArrayList<>());
     }
 
-    Trip(String tripCode, int seatsNumber, List<Reservation> reservations) {
+    public Trip(String tripCode, int seatsNumber, List<Reservation> reservations) {
         this.tripCode = tripCode;
         this.seatsNumber = seatsNumber;
         this.reservations = reservations;
     }
 
-    Optional<ReservationSummary> requestReservation(String userId) {
+    public Optional<ReservationSummary> requestReservation(String userId) {
         if (!hasFreeSeats()) {
             return Optional.empty();
         }
@@ -46,11 +46,15 @@ class Trip {
         reservations = newReservations;
     }
 
-    List<Reservation> getReservations() {
-        return reservations;
-    }
-
     public String getTripCode() {
         return tripCode;
+    }
+
+    public int getSeatsNumber() {
+        return seatsNumber;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
     }
 }

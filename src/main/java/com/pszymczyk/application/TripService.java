@@ -1,19 +1,20 @@
-package com.pszymczyk;
+package com.pszymczyk.application;
 
 import java.util.Optional;
 
-import org.springframework.stereotype.Component;
+import com.pszymczyk.domain.ReservationSummary;
+import com.pszymczyk.domain.Trip;
+import com.pszymczyk.domain.TripRepository;
 
-@Component
-class TripService {
+public class TripService {
 
     private final TripRepository tripRepository;
 
-    TripService(TripRepository tripRepository) {
+    public TripService(TripRepository tripRepository) {
         this.tripRepository = tripRepository;
     }
 
-    void book(String userId, String tripCode) {
+    public void book(String userId, String tripCode) {
         Trip trip = tripRepository.findTrip(tripCode);
 
         Optional<ReservationSummary> reservationSummary = trip.requestReservation(userId);

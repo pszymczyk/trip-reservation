@@ -1,10 +1,12 @@
-package com.pszymczyk;
+package com.pszymczyk.adapters;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Component;
+
+import com.pszymczyk.domain.Reservation;
+import com.pszymczyk.domain.Trip;
+import com.pszymczyk.domain.TripRepository;
 
 import static java.util.stream.Collectors.toList;
 
@@ -21,9 +23,9 @@ class SqlTripRepository implements TripRepository {
     public Trip findTrip(String tripCode) {
         TripEntity tripEntity = crudTripRepository.findByTripCode(tripCode);
         List<Reservation> reservations = tripEntity.getReservations()
-                .stream()
-                .map(entity -> new Reservation(entity.getId(), entity.getUserId(), Reservation.ReservationStatus.valueOf(entity.getStatus())))
-                .collect(toList());
+                                                   .stream()
+                                                   .map(entity -> new Reservation(entity.getId(), entity.getUserId(), Reservation.ReservationStatus.valueOf(entity.getStatus())))
+                                                   .collect(toList());
 
         return new Trip(tripEntity.getTripCode(), tripEntity.getSeatsNumber(), reservations);
     }

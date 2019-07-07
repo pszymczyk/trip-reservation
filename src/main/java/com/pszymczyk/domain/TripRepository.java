@@ -1,6 +1,6 @@
-package com.pszymczyk;
+package com.pszymczyk.domain;
 
-interface TripRepository {
+public interface TripRepository {
 
     Trip findTrip(String tripCode);
 

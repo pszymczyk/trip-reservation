@@ -1,9 +1,9 @@
-package com.pszymczyk;
+package com.pszymczyk.adapters;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.pszymczyk")
 class Application {
 
     public static void main(String[] args) {

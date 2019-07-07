@@ -1,4 +1,4 @@
-package com.pszymczyk;
+package com.pszymczyk.adapters;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.pszymczyk.domain.Trip;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
