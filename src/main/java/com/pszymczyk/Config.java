@@ -12,8 +12,8 @@ class Config {
     }
 
     @Bean
-    TripRepository tripRepository() {
-        return new InMemoryTripRepository();
+    TripRepository sqlTripRepository(CrudTripRepository crudTripRepository) {
+        return new SqlTripRepository(crudTripRepository);
     }
 
 }

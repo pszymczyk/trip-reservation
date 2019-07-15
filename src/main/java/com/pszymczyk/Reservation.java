@@ -20,7 +20,7 @@ class Reservation {
         this.status = ReservationStatus.NEW;
     }
 
-    private Reservation(UUID id, String userId, ReservationStatus status) {
+    Reservation(UUID id, String userId, ReservationStatus status) {
         this.id = id;
         this.userId = userId;
         this.status = status;
@@ -44,4 +44,15 @@ class Reservation {
         return status == Reservation.ReservationStatus.CONFIRMED;
     }
 
+    UUID getId() {
+        return id;
+    }
+
+    String getUserId() {
+        return userId;
+    }
+
+    ReservationStatus getStatus() {
+        return status;
+    }
 }
