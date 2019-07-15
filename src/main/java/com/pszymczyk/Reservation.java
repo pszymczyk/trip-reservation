@@ -1,8 +1,8 @@
-package com.pszymczyk.domain;
+package com.pszymczyk;
 
 import java.util.UUID;
 
-public class Reservation {
+class Reservation {
 
     public enum ReservationStatus {
         NEW,
@@ -10,17 +10,17 @@ public class Reservation {
         CANCELED
     }
 
-    final UUID id;
-    final String userId;
-    final ReservationStatus status;
+    private final UUID id;
+    private final String userId;
+    private final ReservationStatus status;
 
-    public Reservation(String userId) {
+    Reservation(String userId) {
         this.id = UUID.randomUUID();
         this.userId = userId;
         this.status = ReservationStatus.NEW;
     }
 
-    public Reservation(UUID id, String userId, ReservationStatus status) {
+    private Reservation(UUID id, String userId, ReservationStatus status) {
         this.id = id;
         this.userId = userId;
         this.status = status;
@@ -44,15 +44,4 @@ public class Reservation {
         return status == Reservation.ReservationStatus.CONFIRMED;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public ReservationStatus getStatus() {
-        return status;
-    }
 }

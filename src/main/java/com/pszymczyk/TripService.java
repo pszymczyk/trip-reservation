@@ -1,20 +1,16 @@
-package com.pszymczyk.application;
+package com.pszymczyk;
 
 import java.util.Optional;
 
-import com.pszymczyk.domain.ReservationSummary;
-import com.pszymczyk.domain.Trip;
-import com.pszymczyk.domain.TripRepository;
-
-public class TripService {
+class TripService {
 
     private final TripRepository tripRepository;
 
-    public TripService(TripRepository tripRepository) {
+    TripService(TripRepository tripRepository) {
         this.tripRepository = tripRepository;
     }
 
-    public void book(String userId, String tripCode) {
+    void book(String userId, String tripCode) {
         Trip trip = tripRepository.findTrip(tripCode);
 
         Optional<ReservationSummary> reservationSummary = trip.requestReservation(userId);
