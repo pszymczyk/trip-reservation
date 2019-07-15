@@ -49,4 +49,8 @@ class Trip {
     List<Reservation> getReservations() {
         return reservations;
     }
+
+    String getTripCode() {
+        return tripCode;
+    }
 }
