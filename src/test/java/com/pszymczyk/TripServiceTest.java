@@ -57,6 +57,15 @@ public class TripServiceTest {
         //then
         assertThat(trip.getReservations()).hasSize(3);
     }
+
+    @Test
+    public void shouldThrowExceptionWhenCannotFindTrip() {
+        //when
+        Throwable thrown = catchThrowable(() -> tripService.book("some-id", "some-trip"));
+
+        //then
+        assertThat(thrown).isInstanceOf(TripNotFound.class);
+    }
     
     @Test
     public void shouldThrowExceptionWhenTryToBookFullReservedTrip() {
@@ -73,6 +82,6 @@ public class TripServiceTest {
         Throwable thrown = catchThrowable(() -> tripService.book(userId, tripCode));
 
         //then
-        assertThat(thrown).isInstanceOf(IllegalStateException.class);
+        assertThat(thrown).isInstanceOf(TripFullyBooked.class);
     }
 }

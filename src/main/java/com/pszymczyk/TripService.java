@@ -12,11 +12,14 @@ class TripService {
 
     void book(String userId, String tripCode) {
         Trip trip = tripRepository.findTrip(tripCode);
+        if (trip == null) {
+            throw new TripNotFound(tripCode);
+        }
 
         Optional<ReservationSummary> reservationSummary = trip.requestReservation(userId);
 
         if (!reservationSummary.isPresent()) {
-            throw new IllegalStateException();
+            throw new TripFullyBooked(tripCode);
         }
 
         tripRepository.save(trip);
