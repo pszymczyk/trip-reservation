@@ -1,5 +1,6 @@
 package com.pszymczyk;
 
+import org.awaitility.Awaitility;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -43,7 +45,8 @@ public class IntegrationTest {
         tripReservationClient.book(userId, tripCode);
 
         //then trip booked
-        assertThat(tripReservationClient.findTrip(tripCode)).contains("kazik");
+        await().untilAsserted(() -> assertThat(tripReservationClient.findTrip(tripCode)).contains("kazik"));
+
     }
 
     private HttpHeaders jsonHeaders() {

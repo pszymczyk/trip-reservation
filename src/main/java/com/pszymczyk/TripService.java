@@ -12,7 +12,7 @@ class TripService {
         this.eventPublisher = eventPublisher;
     }
 
-    void book(String userId, String tripCode) {
+    public void book(String userId, String tripCode) {
         Trip trip = tripRepository.findTrip(tripCode);
         if (trip == null) {
             throw new TripNotFound(tripCode);
