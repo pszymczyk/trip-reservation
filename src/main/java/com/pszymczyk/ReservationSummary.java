@@ -1,6 +1,6 @@
 package com.pszymczyk;
 
-class ReservationSummary {
+class ReservationSummary implements DomainEvent {
 
     private final String reservationId;
     private final String status;

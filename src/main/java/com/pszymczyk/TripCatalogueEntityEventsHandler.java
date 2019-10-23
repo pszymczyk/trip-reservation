@@ -17,7 +17,8 @@ class TripCatalogueEntityEventsHandler {
     }
 
     @HandleAfterCreate
-    public void handleAfterCreate(TripCatalogueEntity tripCatalogueEntity) {
+    public void handleAfterCreate(TripCatalogueEntity tripCatalogueEntity) throws InterruptedException {
+        Thread.sleep(5000);
         TripEntity tripEntity = new TripEntity();
         tripEntity.setTripCode(tripCatalogueEntity.getTripCode());
         tripEntity.setSeatsNumber(tripCatalogueEntity.getSeatsNumber());

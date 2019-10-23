@@ -5,11 +5,11 @@ import java.util.Optional;
 class TripService {
 
     private final TripRepository tripRepository;
-    private final ReservationsReadModel reservationsReadModel;
+    private EventPublisher eventPublisher;
 
-    TripService(TripRepository tripRepository, ReservationsReadModel reservationsReadModel) {
+    TripService(TripRepository tripRepository, EventPublisher eventPublisher) {
         this.tripRepository = tripRepository;
-        this.reservationsReadModel = reservationsReadModel;
+        this.eventPublisher = eventPublisher;
     }
 
     void book(String userId, String tripCode) {
@@ -18,13 +18,11 @@ class TripService {
             throw new TripNotFound(tripCode);
         }
 
-        Optional<ReservationSummary> reservationSummary = trip.requestReservation(userId);
+        Optional<ReservationSummary> reservationSummary = trip.requestReservation(userId, eventPublisher);
 
         if (!reservationSummary.isPresent()) {
             throw new TripFullyBooked(tripCode);
         }
         tripRepository.save(trip);
-        reservationSummary.ifPresent(summary -> reservationsReadModel.update(
-                new ReservationAdded(tripCode, summary.getReservationId(), userId, summary.getStatus())));
     }
 }
