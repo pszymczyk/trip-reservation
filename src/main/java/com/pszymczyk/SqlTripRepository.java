@@ -2,8 +2,11 @@ package com.pszymczyk;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import static java.util.stream.Collectors.toList;
 
+@Component
 class SqlTripRepository implements TripRepository {
 
     private final CrudTripRepository crudTripRepository;

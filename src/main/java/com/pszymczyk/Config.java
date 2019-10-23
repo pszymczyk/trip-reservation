@@ -7,13 +7,7 @@ import org.springframework.context.annotation.Configuration;
 class Config {
 
     @Bean
-    TripService tripService(TripRepository tripRepository) {
-        return new TripService(tripRepository);
+    TripService tripService(TripRepository tripRepository, ReservationsReadModel reservationsReadModel) {
+        return new TripService(tripRepository, reservationsReadModel);
     }
-
-    @Bean
-    TripRepository sqlTripRepository(CrudTripRepository crudTripRepository) {
-        return new SqlTripRepository(crudTripRepository);
-    }
-
 }

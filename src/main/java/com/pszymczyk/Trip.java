@@ -27,8 +27,9 @@ class Trip {
             return Optional.empty();
         }
 
-        addReservation(new Reservation(userId));
-        return Optional.of(new ReservationSummary());
+        Reservation newReservation = new Reservation(userId);
+        addReservation(newReservation);
+        return Optional.of(new ReservationSummary(newReservation.getId().toString(), newReservation.getStatus().name()));
     }
 
     private boolean hasFreeSeats() {

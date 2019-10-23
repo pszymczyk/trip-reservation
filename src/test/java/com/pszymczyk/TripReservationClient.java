@@ -39,4 +39,8 @@ class TripReservationClient {
         ResponseEntity<Void> response = testRestTemplate.exchange("/trips", POST, entity, Void.class);
         assertThat(response.getStatusCode()).isEqualByComparingTo(CREATED);
     }
+
+    public String findTrip(String tripCode) {
+        return testRestTemplate.getForEntity("/reservations/search/findByTripCode?tripCode=" + tripCode, String.class).getBody();
+    }
 }

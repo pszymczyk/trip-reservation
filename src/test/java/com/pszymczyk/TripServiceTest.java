@@ -20,7 +20,7 @@ public class TripServiceTest {
     @Before
     public void setup() {
         tripRepository = mock(TripRepository.class);
-        tripService = new TripService(tripRepository);
+        tripService = new TripService(tripRepository, mock(ReservationsReadModel.class));
     }
 
     @Test

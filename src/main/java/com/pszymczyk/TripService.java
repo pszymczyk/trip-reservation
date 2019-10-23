@@ -5,9 +5,11 @@ import java.util.Optional;
 class TripService {
 
     private final TripRepository tripRepository;
+    private final ReservationsReadModel reservationsReadModel;
 
-    TripService(TripRepository tripRepository) {
+    TripService(TripRepository tripRepository, ReservationsReadModel reservationsReadModel) {
         this.tripRepository = tripRepository;
+        this.reservationsReadModel = reservationsReadModel;
     }
 
     void book(String userId, String tripCode) {
@@ -21,7 +23,8 @@ class TripService {
         if (!reservationSummary.isPresent()) {
             throw new TripFullyBooked(tripCode);
         }
-
         tripRepository.save(trip);
+        reservationSummary.ifPresent(summary -> reservationsReadModel.update(
+                new ReservationAdded(tripCode, summary.getReservationId(), userId, summary.getStatus())));
     }
 }

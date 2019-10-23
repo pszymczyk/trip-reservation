@@ -21,9 +21,6 @@ public class IntegrationTest {
     TripService tripService;
 
     @Autowired
-    TripRepository tripRepository;
-
-    @Autowired
     TestRestTemplate testRestTemplate;
 
     TripReservationClient tripReservationClient;
@@ -46,7 +43,7 @@ public class IntegrationTest {
         tripReservationClient.book(userId, tripCode);
 
         //then trip booked
-        assertThat(tripRepository.findTrip(tripCode).getReservations()).hasSize(1);
+        assertThat(tripReservationClient.findTrip(tripCode)).contains("kazik");
     }
 
     private HttpHeaders jsonHeaders() {
