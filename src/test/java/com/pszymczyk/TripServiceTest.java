@@ -3,8 +3,8 @@ package com.pszymczyk;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -12,19 +12,19 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class TripServiceTest {
+class TripServiceTest {
 
     private TripService tripService;
     private TripRepository tripRepository;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         tripRepository = mock(TripRepository.class);
         tripService = new TripService(tripRepository);
     }
 
     @Test
-    public void shouldBookTrip() {
+    void shouldBookTrip() {
         //given
         String userId = "some-id";
         String tripCode = "some-trip";
@@ -39,7 +39,7 @@ public class TripServiceTest {
     }
 
     @Test
-    public void shouldBookTripEvenWhenThereIsALotNotConfirmedReservations() {
+    void shouldBookTripEvenWhenThereIsALotNotConfirmedReservations() {
         //given
         String userId = "some-id";
         String tripCode = "some-trip";
@@ -59,7 +59,7 @@ public class TripServiceTest {
     }
     
     @Test
-    public void shouldThrowExceptionWhenTryToBookFullReservedTrip() {
+    void shouldThrowExceptionWhenTryToBookFullReservedTrip() {
         //given
         String userId = "some-id";
         String tripCode = "some-trip";
