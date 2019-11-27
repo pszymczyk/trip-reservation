@@ -1,23 +1,19 @@
 package com.pszymczyk;
 
-import org.awaitility.Awaitility;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class IntegrationTest {
+class IntegrationTest {
 
     @Autowired
     TripService tripService;
@@ -27,13 +23,13 @@ public class IntegrationTest {
 
     TripReservationClient tripReservationClient;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         tripReservationClient = new TripReservationClient(testRestTemplate);
     }
 
     @Test
-    public void shouldBookTrip() {
+    void shouldBookTrip() {
         //given
         String userId = "kazik";
         String tripCode = "123";
@@ -46,7 +42,6 @@ public class IntegrationTest {
 
         //then trip booked
         await().untilAsserted(() -> assertThat(tripReservationClient.findTrip(tripCode)).contains("kazik"));
-
     }
 
     private HttpHeaders jsonHeaders() {

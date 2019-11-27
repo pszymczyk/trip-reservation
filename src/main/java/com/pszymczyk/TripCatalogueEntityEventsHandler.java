@@ -4,8 +4,6 @@ import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
 
-import com.pszymczyk.CrudTripRepository;
-
 @RepositoryEventHandler
 @Component
 class TripCatalogueEntityEventsHandler {

@@ -29,7 +29,7 @@ class TripReservationClient {
     }
 
 
-    public void addTrip(String tripCode) {
+    void addTrip(String tripCode) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>("{\n"
