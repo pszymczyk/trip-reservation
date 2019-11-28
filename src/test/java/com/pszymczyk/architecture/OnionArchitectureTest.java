@@ -10,7 +10,7 @@ import static com.tngtech.archunit.library.Architectures.onionArchitecture;
 class OnionArchitectureTest {
 
     @ArchTest
-    static final ArchRule onion_architecture_is_respected = onionArchitecture()
+    static final ArchRule Onion_architecture_is_respected = onionArchitecture()
             .domainModels("..domain.model..")
             .applicationServices("..application..")
             .adapter("app", "..adapter.app..")

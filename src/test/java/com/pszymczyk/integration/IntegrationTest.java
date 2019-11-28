@@ -21,7 +21,7 @@ class IntegrationTest {
     TripReservationClient tripReservationClient;
 
     @Test
-    void shouldBookTrip() {
+    void Should_book_trip() {
         //given
         String userId = "kazik";
         String tripCode = "123";

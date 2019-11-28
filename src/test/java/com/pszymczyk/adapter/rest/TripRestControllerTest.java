@@ -35,7 +35,7 @@ class TripRestControllerTest {
     private TripService service;
 
     @Test
-    void shouldHandleBookTripRequest() throws Exception {
+    void Should_handle_book_trip_request() throws Exception {
         String reservationId = "999";
         when(service.book(anyString(), anyString())).thenReturn(new ReservationSummary(reservationId, "NEW"));
 
@@ -50,7 +50,7 @@ class TripRestControllerTest {
     }
 
     @Test
-    void shouldHandleTripNotFound() throws Exception {
+    void Should_handle_trip_not_found() throws Exception {
         doThrow(new TripNotFound("234")).when(service).book(anyString(), anyString());
 
         mockMvc.perform(
@@ -63,7 +63,7 @@ class TripRestControllerTest {
     }
 
     @Test
-    void shouldHandleTripFullyBooked() throws Exception {
+    void Should_handle_trip_fully_booked() throws Exception {
         doThrow(new TripFullyBooked("234")).when(service).book(anyString(), anyString());
 
         mockMvc.perform(

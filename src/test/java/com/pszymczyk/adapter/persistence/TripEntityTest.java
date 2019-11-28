@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TripEntityTest {
 
     @Test
-    void shouldApplyReservationStatusChange() {
+    void Should_apply_reservation_status_change() {
         //given
         ReservationEntity reservationEntity = new ReservationEntity();
         reservationEntity.setId(UUID.randomUUID());
@@ -43,7 +43,7 @@ class TripEntityTest {
     }
 
     @Test
-    void shouldApplyReservationStatusChangeOnEveryRecord() {
+    void Should_apply_reservation_status_change_on_every_record() {
         //given
         ReservationEntity oneReservationEntity = new ReservationEntity();
         oneReservationEntity.setId(UUID.randomUUID());
@@ -71,7 +71,7 @@ class TripEntityTest {
     }
 
     @Test
-    void shouldApplyNewReservation() {
+    void Should_apply_new_reservation() {
         //given
         TripEntity entity = new TripEntity();
         entity.setReservations(new HashSet<>());

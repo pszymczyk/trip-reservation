@@ -4,10 +4,6 @@ import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
 
-import com.pszymczyk.adapter.persistence.CrudTripRepository;
-import com.pszymczyk.adapter.persistence.TripCatalogueEntity;
-import com.pszymczyk.adapter.persistence.TripEntity;
-
 @RepositoryEventHandler
 @Component
 class TripCatalogueEntityEventsHandler {

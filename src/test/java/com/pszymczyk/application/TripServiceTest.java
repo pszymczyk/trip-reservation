@@ -6,7 +6,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.pszymczyk.application.TripService;
 import com.pszymczyk.domain.model.EventPublisher;
 import com.pszymczyk.domain.model.Reservation;
 import com.pszymczyk.domain.model.Trip;
@@ -32,7 +31,7 @@ class TripServiceTest {
     }
 
     @Test
-    void shouldBookTrip() {
+    void Should_book_trip() {
         //given
         String userId = "some-id";
         String tripCode = "some-trip";
@@ -47,7 +46,7 @@ class TripServiceTest {
     }
 
     @Test
-    void shouldBookTripEvenWhenThereIsALotNotConfirmedReservations() {
+    void Should_book_trip_even_when_there_is_a_lot_not_confirmed_reservations() {
         //given
         String userId = "some-id";
         String tripCode = "some-trip";
@@ -67,7 +66,7 @@ class TripServiceTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenCannotFindTrip() {
+    void Should_throw_exception_when_cannot_find_trip() {
         //when
         Throwable thrown = catchThrowable(() -> tripService.book("some-id", "some-trip"));
 
@@ -76,7 +75,7 @@ class TripServiceTest {
     }
     
     @Test
-    void shouldThrowExceptionWhenTryToBookFullReservedTrip() {
+    void Should_throw_exception_when_try_to_book_full_reserved_trip() {
         //given
         String userId = "some-id";
         String tripCode = "some-trip";
