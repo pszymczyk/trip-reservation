@@ -1,7 +1,5 @@
 package com.pszymczyk.application;
 
-import java.util.Optional;
-
 import com.pszymczyk.domain.model.EventPublisher;
 import com.pszymczyk.domain.model.ReservationSummary;
 import com.pszymczyk.domain.model.Trip;
@@ -19,17 +17,17 @@ public class TripService {
         this.eventPublisher = eventPublisher;
     }
 
-    public void book(String userId, String tripCode) {
+    public ReservationSummary book(String userId, String tripCode) {
         Trip trip = tripRepository.findTrip(tripCode);
         if (trip == null) {
             throw new TripNotFound(tripCode);
         }
 
-        Optional<ReservationSummary> reservationSummary = trip.requestReservation(userId, eventPublisher);
-
-        if (!reservationSummary.isPresent()) {
-            throw new TripFullyBooked(tripCode);
-        }
-        tripRepository.save(trip);
+        return trip.requestReservation(userId, eventPublisher)
+                   .map(summary -> {
+                       tripRepository.save(trip);
+                       return summary;
+                   })
+                   .orElseThrow(() -> new TripFullyBooked(tripCode));
     }
 }
