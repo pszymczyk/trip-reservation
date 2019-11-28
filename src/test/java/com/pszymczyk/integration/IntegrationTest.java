@@ -1,31 +1,24 @@
 package com.pszymczyk.integration;
 
-import org.junit.jupiter.api.BeforeEach;
+import java.net.URI;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.pszymczyk.application.Application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = Application.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = { Application.class, IntegrationConfiguration.class })
+@ActiveProfiles("integration")
 class IntegrationTest {
 
     @Autowired
-    TestRestTemplate testRestTemplate;
-
     TripReservationClient tripReservationClient;
-
-    @BeforeEach
-    void setup() {
-        tripReservationClient = new TripReservationClient(testRestTemplate);
-    }
 
     @Test
     void shouldBookTrip() {
@@ -37,15 +30,9 @@ class IntegrationTest {
         tripReservationClient.addTrip(tripCode);
 
         //and when book trip
-        tripReservationClient.book(userId, tripCode);
+        URI reservationLocation = tripReservationClient.book(userId, tripCode);
 
         //then trip booked
-        await().untilAsserted(() -> assertThat(tripReservationClient.findTrip(tripCode)).contains("kazik"));
-    }
-
-    private HttpHeaders jsonHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        return headers;
+        await().untilAsserted(() -> assertThat(tripReservationClient.findReservation(reservationLocation)).contains("kazik"));
     }
 }

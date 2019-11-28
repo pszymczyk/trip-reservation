@@ -17,10 +17,9 @@ class SqlReservationsReadModel implements ReservationsReadModel {
     @Override
     public void update(ReservationAdded reservationAdded) {
         ReservationsReadModelEntity reservationsReadModelEntity = new ReservationsReadModelEntity();
-        reservationsReadModelEntity.setTripCode(reservationAdded.getTripCode());
+        reservationsReadModelEntity.setReservationId(reservationAdded.getReservationId());
         reservationsReadModelEntity.setValue("{\n"
-                + "  \"reservation\": \"Reservation in status " + reservationAdded.getStatus() + " for trip " + reservationAdded
-                .getTripCode() + " and user " + reservationAdded.getUserId() + "\"\n"
+                + "  \"reservation\": \"Reservation in status " + reservationAdded.getStatus() + " for trip " + reservationAdded.getTripCode() + " and user " + reservationAdded.getUserId() + "\"\n"
                 + "}");
         crudReservationsReadModelEntityRepository.save(reservationsReadModelEntity);
     }

@@ -7,26 +7,16 @@ import javax.persistence.Id;
 class ReservationsReadModelEntity {
 
     @Id
-    private int entityId;
-
-    private String tripCode;
+    private String reservationId;
 
     private String value;
 
-    public int getEntityId() {
-        return entityId;
+    public String getReservationId() {
+        return reservationId;
     }
 
-    public void setEntityId(int entityId) {
-        this.entityId = entityId;
-    }
-
-    public String getTripCode() {
-        return tripCode;
-    }
-
-    public void setTripCode(String tripCode) {
-        this.tripCode = tripCode;
+    public void setReservationId(String reservationId) {
+        this.reservationId = reservationId;
     }
 
     public String getValue() {

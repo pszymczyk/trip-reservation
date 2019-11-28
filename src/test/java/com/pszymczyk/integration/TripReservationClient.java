@@ -1,5 +1,7 @@
 package com.pszymczyk.integration;
 
+import java.net.URI;
+
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,14 +20,16 @@ class TripReservationClient {
         this.testRestTemplate = testRestTemplate;
     }
 
-    void book(String userId, String tripCode) {
+    URI book(String userId, String tripCode) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>("{\n"
+                + "  \"tripCode\": \"" + tripCode + "\",\n"
                 + "  \"userId\": \"" + userId + "\"\n"
                 + "}", headers);
-        ResponseEntity<Void> response = testRestTemplate.exchange("/trips/" + tripCode + "/reservations", POST, entity, Void.class);
+        ResponseEntity<Void> response = testRestTemplate.exchange("/reservations", POST, entity, Void.class);
         assertThat(response.getStatusCode()).isEqualByComparingTo(CREATED);
+        return response.getHeaders().getLocation();
     }
 
 
@@ -40,7 +44,7 @@ class TripReservationClient {
         assertThat(response.getStatusCode()).isEqualByComparingTo(CREATED);
     }
 
-    public String findTrip(String tripCode) {
-        return testRestTemplate.getForEntity("/reservations/search/findByTripCode?tripCode=" + tripCode, String.class).getBody();
+    String findReservation(URI reservationLocation) {
+        return testRestTemplate.getForEntity(reservationLocation, String.class).getBody();
     }
 }

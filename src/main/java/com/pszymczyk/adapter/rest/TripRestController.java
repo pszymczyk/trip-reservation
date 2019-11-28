@@ -25,6 +25,7 @@ class TripRestController {
     private static final Logger log = LoggerFactory.getLogger(TripRestController.class);
 
     static class Request {
+        String tripCode;
         String userId;
 
         public String getUserId() {
@@ -34,6 +35,14 @@ class TripRestController {
         public void setUserId(String userId) {
             this.userId = userId;
         }
+
+        public String getTripCode() {
+            return tripCode;
+        }
+
+        public void setTripCode(String tripCode) {
+            this.tripCode = tripCode;
+        }
     }
 
     private final TripService tripService;
@@ -42,10 +51,10 @@ class TripRestController {
         this.tripService = tripService;
     }
 
-    @PostMapping(path = "/trips/{tripCode}/reservations", consumes = "application/json")
+    @PostMapping(path = "/reservations", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<?> bookTrip(@PathVariable String tripCode, @RequestBody Request request) {
-        ReservationSummary reservationSummary = tripService.book(request.userId, tripCode);
+    ResponseEntity<?> bookTrip(@RequestBody Request request) {
+        ReservationSummary reservationSummary = tripService.book(request.userId, request.tripCode);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(reservationSummary.getReservationId()).toUri();
