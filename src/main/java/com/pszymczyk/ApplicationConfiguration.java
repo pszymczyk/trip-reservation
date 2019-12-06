@@ -12,9 +12,4 @@ class ApplicationConfiguration {
     TripService tripService(TripRepository tripRepository) {
         return new TripService(tripRepository);
     }
-
-    @Bean
-    TripRepository tripRepository() {
-        return new InMemoryTripRepository();
-    }
 }
