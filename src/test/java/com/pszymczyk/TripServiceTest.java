@@ -6,13 +6,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.pszymczyk.TripService;
-import com.pszymczyk.EventPublisher;
-import com.pszymczyk.Reservation;
-import com.pszymczyk.Trip;
-import com.pszymczyk.TripFullyBooked;
-import com.pszymczyk.TripNotFound;
-import com.pszymczyk.TripRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -28,7 +21,7 @@ class TripServiceTest {
     @BeforeEach
     void setup() {
         tripRepository = mock(TripRepository.class);
-        tripService = new TripService(tripRepository, mock(EventPublisher.class));
+        tripService = new TripService(tripRepository, mock(ReservationsReadModel.class));
     }
 
     @Test

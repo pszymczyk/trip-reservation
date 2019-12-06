@@ -1,6 +1,6 @@
 package com.pszymczyk;
 
-class ReservationAdded implements DomainEvent {
+class ReservationAdded {
 
     private final String tripCode;
     private final String reservationId;
