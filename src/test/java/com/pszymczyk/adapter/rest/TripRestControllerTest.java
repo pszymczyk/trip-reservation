@@ -40,9 +40,10 @@ class TripRestControllerTest {
         when(service.book(anyString(), anyString())).thenReturn(new ReservationSummary(reservationId, "NEW"));
 
         mockMvc.perform(
-                post("/trips/234/reservations")
+                post("/reservations")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n"
+                                + "  \"tripCode\": \"234\",\n"
                                 + "  \"userId\": \"kazik\"\n"
                                 + "}"))
                .andExpect(status().is2xxSuccessful())
@@ -54,9 +55,10 @@ class TripRestControllerTest {
         doThrow(new TripNotFound("234")).when(service).book(anyString(), anyString());
 
         mockMvc.perform(
-                post("/trips/234/reservations")
+                post("/reservations/234")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n"
+                                + "  \"tripCode\": \"234\",\n"
                                 + "  \"userId\": \"kazik\"\n"
                                 + "}"))
                .andExpect(status().isNotFound());
@@ -67,9 +69,10 @@ class TripRestControllerTest {
         doThrow(new TripFullyBooked("234")).when(service).book(anyString(), anyString());
 
         mockMvc.perform(
-                post("/trips/234/reservations")
+                post("/reservations")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n"
+                                + "  \"tripCode\": \"234\",\n"
                                 + "  \"userId\": \"kazik\"\n"
                                 + "}"))
                .andExpect(status().isConflict());
