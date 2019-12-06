@@ -1,8 +1,7 @@
 package com.pszymczyk;
 
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component
 class SpringDomainEventsListener {
@@ -13,8 +12,7 @@ class SpringDomainEventsListener {
         this.reservationsReadModel = reservationsReadModel;
     }
 
-    @Async
-    @TransactionalEventListener
+    @EventListener
     public void after(ReservationAdded reservationAdded) throws InterruptedException {
         reservationsReadModel.update(reservationAdded);
     }
