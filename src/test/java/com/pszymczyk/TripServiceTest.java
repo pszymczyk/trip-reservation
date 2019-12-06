@@ -21,7 +21,7 @@ class TripServiceTest {
     @BeforeEach
     void setup() {
         tripRepository = mock(TripRepository.class);
-        tripService = new TripService(tripRepository, mock(ReservationsReadModel.class));
+        tripService = new TripService(tripRepository);
     }
 
     @Test

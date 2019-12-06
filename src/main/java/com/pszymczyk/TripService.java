@@ -3,11 +3,9 @@ package com.pszymczyk;
 class TripService {
 
     private final TripRepository tripRepository;
-    private final ReservationsReadModel reservationsReadModel;
 
-    public TripService(TripRepository tripRepository, ReservationsReadModel reservationsReadModel) {
+    public TripService(TripRepository tripRepository) {
         this.tripRepository = tripRepository;
-        this.reservationsReadModel = reservationsReadModel;
     }
 
     public ReservationSummary book(String userId, String tripCode) {
@@ -19,7 +17,6 @@ class TripService {
         return trip.requestReservation(userId)
                    .map(summary -> {
                        tripRepository.save(trip);
-                       reservationsReadModel.update(new ReservationAdded(tripCode, summary.getReservationId(), userId, summary.getStatus()));
                        return summary;
                    })
                    .orElseThrow(() -> new TripFullyBooked(tripCode));

@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 class ApplicationConfiguration {
 
     @Bean
-    TripService tripService(TripRepository tripRepository, ReservationsReadModel reservationsReadModel) {
-        return new TripService(tripRepository, reservationsReadModel);
+    TripService tripService(TripRepository tripRepository) {
+        return new TripService(tripRepository);
     }
 }
