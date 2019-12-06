@@ -1,7 +1,5 @@
 package com.pszymczyk;
 
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
@@ -9,8 +7,4 @@ import org.springframework.context.annotation.Profile;
 @Profile("integration")
 class IntegrationConfiguration {
 
-    @Bean
-    TripReservationClient tripReservationClient(TestRestTemplate testRestTemplate) {
-        return new TripReservationClient(testRestTemplate);
-    }
 }

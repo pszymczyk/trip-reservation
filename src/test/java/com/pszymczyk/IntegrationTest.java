@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class IntegrationTest {
 
     @Autowired
-    TripReservationClient tripReservationClient;
+    TripRepository tripRepository;
 
     @Autowired
-    TripRepository tripRepository;
+    TripService tripService;
 
     @Test
     void Should_book_trip() {
@@ -25,10 +25,10 @@ class IntegrationTest {
         String tripCode = "123";
 
         //when add trip
-        tripReservationClient.addTrip(tripCode);
+        tripRepository.save(new Trip(tripCode, 10));
 
         //and when book trip
-        tripReservationClient.book(userId, tripCode);
+        tripService.book(userId, tripCode);
 
         //then trip booked
         assertThat(tripRepository.findTrip(tripCode).getReservations()).hasSize(1);
