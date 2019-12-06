@@ -13,6 +13,11 @@ class SqlReservationsReadModel implements ReservationsReadModel {
 
     @Override
     public void update(ReservationAdded reservationAdded) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ReservationsReadModelEntity reservationsReadModelEntity = new ReservationsReadModelEntity();
         reservationsReadModelEntity.setReservationId(reservationAdded.getReservationId());
         reservationsReadModelEntity.setValue("{\n"
