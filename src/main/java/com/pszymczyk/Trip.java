@@ -22,13 +22,14 @@ class Trip {
         this.reservations = reservations;
     }
 
-    Optional<ReservationSummary> requestReservation(String userId) {
+    Optional<ReservationSummary> requestReservation(String userId, EventPublisher eventPublisher) {
         if (!hasFreeSeats()) {
             return Optional.empty();
         }
 
         Reservation newReservation = new Reservation(userId);
         addReservation(newReservation);
+        eventPublisher.send(new ReservationAdded(tripCode, newReservation.getId().toString(), userId, newReservation.getStatus().name()));
         return Optional.of(new ReservationSummary(newReservation.getId().toString(), newReservation.getStatus().name()));
     }
 
