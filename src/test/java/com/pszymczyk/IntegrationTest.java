@@ -1,5 +1,7 @@
 package com.pszymczyk;
 
+import java.net.URI;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,9 +17,6 @@ class IntegrationTest {
     @Autowired
     TripReservationClient tripReservationClient;
 
-    @Autowired
-    TripRepository tripRepository;
-
     @Test
     void Should_book_trip() {
         //given
@@ -28,9 +27,9 @@ class IntegrationTest {
         tripReservationClient.addTrip(tripCode);
 
         //and when book trip
-        tripReservationClient.book(userId, tripCode);
+        URI reservationLocation = tripReservationClient.book(userId, tripCode);
 
         //then trip booked
-        assertThat(tripRepository.findTrip(tripCode).getReservations()).hasSize(1);
+        assertThat(tripReservationClient.findReservation(reservationLocation)).contains(userId);
     }
 }
