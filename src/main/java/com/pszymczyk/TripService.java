@@ -4,11 +4,11 @@ class TripService {
 
     private final TripRepository tripRepository;
 
-    public TripService(TripRepository tripRepository) {
+    TripService(TripRepository tripRepository) {
         this.tripRepository = tripRepository;
     }
 
-    public ReservationSummary book(String userId, String tripCode) {
+    ReservationSummary book(String userId, String tripCode) {
         Trip trip = tripRepository.findTrip(tripCode);
         if (trip == null) {
             throw new TripNotFound(tripCode);
