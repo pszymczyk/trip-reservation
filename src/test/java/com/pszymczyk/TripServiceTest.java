@@ -27,9 +27,9 @@ class TripServiceTest {
     @Test
     void Should_book_trip() {
         //given
-        String userId = "some-id";
-        String tripCode = "some-trip";
-        Trip trip = new Trip(tripCode, 1);
+        var userId = "some-id";
+        var tripCode = "some-trip";
+        var trip = new Trip(tripCode, 1);
         when(tripRepository.findTrip(anyString())).thenReturn(trip);
 
         //when
@@ -42,14 +42,14 @@ class TripServiceTest {
     @Test
     void Should_book_trip_even_when_there_is_a_lot_not_confirmed_reservations() {
         //given
-        String userId = "some-id";
-        String tripCode = "some-trip";
-        List<Reservation> reservations = new ArrayList<>();
-        Reservation newReservation = new Reservation(userId);
+        var userId = "some-id";
+        var tripCode = "some-trip";
+        var reservations = new ArrayList<Reservation>();
+        var newReservation = new Reservation(userId);
         reservations.add(newReservation);
-        Reservation canceledReservation = new Reservation(userId).cancel();
+        var canceledReservation = new Reservation(userId).cancel();
         reservations.add(canceledReservation);
-        Trip trip = new Trip(tripCode, 1, reservations);
+        var trip = new Trip(tripCode, 1, reservations);
         when(tripRepository.findTrip(anyString())).thenReturn(trip);
 
         //when
@@ -62,7 +62,7 @@ class TripServiceTest {
     @Test
     void Should_throw_exception_when_cannot_find_trip() {
         //when
-        Throwable thrown = catchThrowable(() -> tripService.book("some-id", "some-trip"));
+        var thrown = catchThrowable(() -> tripService.book("some-id", "some-trip"));
 
         //then
         assertThat(thrown).isInstanceOf(TripNotFound.class);
@@ -71,16 +71,16 @@ class TripServiceTest {
     @Test
     void Should_throw_exception_when_try_to_book_full_reserved_trip() {
         //given
-        String userId = "some-id";
-        String tripCode = "some-trip";
-        List<Reservation> reservations = new ArrayList<>();
-        Reservation reservation = new Reservation(userId).confirm();
+        var userId = "some-id";
+        var tripCode = "some-trip";
+        var reservations = new ArrayList<Reservation>();
+        var reservation = new Reservation(userId).confirm();
         reservations.add(reservation);
-        Trip trip = new Trip(tripCode, 1, reservations);
+        var trip = new Trip(tripCode, 1, reservations);
         when(tripRepository.findTrip(anyString())).thenReturn(trip);
 
         //when
-        Throwable thrown = catchThrowable(() -> tripService.book(userId, tripCode));
+        var thrown = catchThrowable(() -> tripService.book(userId, tripCode));
 
         //then
         assertThat(thrown).isInstanceOf(TripFullyBooked.class);
