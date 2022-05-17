@@ -2,7 +2,7 @@ package com.pszymczyk;
 
 import java.util.UUID;
 
-record Reservation(UUID id, String userId, ReservationStatus status) {
+class Reservation {
 
     public enum ReservationStatus {
         NEW,
@@ -10,8 +10,20 @@ record Reservation(UUID id, String userId, ReservationStatus status) {
         CANCELED
     }
 
+    private final UUID id;
+    private final String userId;
+    private final ReservationStatus status;
+
     Reservation(String userId) {
-        this(UUID.randomUUID(), userId, ReservationStatus.NEW);
+        this.id = UUID.randomUUID();
+        this.userId = userId;
+        this.status = ReservationStatus.NEW;
+    }
+
+    Reservation(UUID id, String userId, ReservationStatus status) {
+        this.id = id;
+        this.userId = userId;
+        this.status = status;
     }
 
     Reservation cancel() {
@@ -32,4 +44,15 @@ record Reservation(UUID id, String userId, ReservationStatus status) {
         return status == Reservation.ReservationStatus.CONFIRMED;
     }
 
+    UUID getId() {
+        return id;
+    }
+
+    String getUserId() {
+        return userId;
+    }
+
+    ReservationStatus getStatus() {
+        return status;
+    }
 }
