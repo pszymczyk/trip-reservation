@@ -9,7 +9,7 @@ class TripService {
     }
 
     ReservationSummary book(String userId, String tripCode) {
-        var trip = tripRepository.findTrip(tripCode);
+        Trip trip = tripRepository.findTrip(tripCode);
         if (trip == null) {
             throw new TripNotFound(tripCode);
         }

@@ -1,5 +1,20 @@
 package com.pszymczyk;
 
-record ReservationSummary(String reservationId, String status) {
+class ReservationSummary {
 
+    private final String reservationId;
+    private final String status;
+
+    ReservationSummary(String reservationId, String status) {
+        this.reservationId = reservationId;
+        this.status = status;
+    }
+
+    String getReservationId() {
+        return reservationId;
+    }
+
+    String getStatus() {
+        return status;
+    }
 }
