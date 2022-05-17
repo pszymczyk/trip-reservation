@@ -2,19 +2,22 @@ package com.pszymczyk;
 
 class ReservationSummary {
 
-    private final String reservationId;
-    private final String status;
+    private String reservationId;
+    private String status;
 
-    ReservationSummary(String reservationId, String status) {
-        this.reservationId = reservationId;
-        this.status = status;
-    }
-
-    String getReservationId() {
+    public String getReservationId() {
         return reservationId;
     }
 
-    String getStatus() {
+    public void setReservationId(String reservationId) {
+        this.reservationId = reservationId;
+    }
+
+    public String getStatus() {
         return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -2,56 +2,34 @@ package com.pszymczyk;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 class Trip {
 
-    private final String tripCode;
-    private final int seatsNumber;
+    private String tripCode;
+    private int seats;
+    private List<Reservation> reservations = new ArrayList<>();
 
-    private List<Reservation> reservations;
-
-    Trip(String tripCode, int seatsNumber) {
-        this(tripCode, seatsNumber, new ArrayList<>());
+    public String getTripCode() {
+        return tripCode;
     }
 
-    Trip(String tripCode, int seatsNumber, List<Reservation> reservations) {
+    public void setTripCode(String tripCode) {
         this.tripCode = tripCode;
-        this.seatsNumber = seatsNumber;
-        this.reservations = reservations;
     }
 
-    Optional<ReservationSummary> requestReservation(String userId) {
-        if (!hasFreeSeats()) {
-            return Optional.empty();
-        }
-
-        Reservation newReservation = new Reservation(userId);
-        addReservation(newReservation);
-        return Optional.of(new ReservationSummary(newReservation.getId().toString(), newReservation.getStatus().name()));
+    public int getSeats() {
+        return seats;
     }
 
-    private boolean hasFreeSeats() {
-        List<Reservation> reservations = this.reservations
-                                             .stream()
-                                             .filter(Reservation::isConfirmed)
-                                             .collect(Collectors.toList());
-
-        return seatsNumber > reservations.size();
+    public void setSeats(int seats) {
+        this.seats = seats;
     }
 
-    private void addReservation(Reservation newReservation) {
-        List<Reservation> newReservations = new ArrayList<>(reservations);
-        newReservations.add(newReservation);
-        reservations = newReservations;
-    }
-
-    List<Reservation> getReservations() {
+    public List<Reservation> getReservations() {
         return reservations;
     }
 
-    String getTripCode() {
-        return tripCode;
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }
